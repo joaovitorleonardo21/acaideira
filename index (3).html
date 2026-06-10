@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="AçaíDeira Mix | Delivery de Açaí, Sanduíches e Sorvetes em Pendências/RN"/>
+<title>AçaíDeira Mix | Delivery</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet"/>
+<style>
+:root{--p:#2B004D;--m:#5B1FA6;--g:#8BCF3F;--gd:#6aaa28;--w:#fff;--sh:0 4px 24px rgba(43,0,77,.13)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#f8f4ff;color:#222}
+/* NAV */
+nav{background:var(--p);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.35)}
+.nav-logo{font-family:'Fredoka One',sans-serif;font-size:1.5rem;color:var(--g)}
+.nav-logo em{color:#fff;font-style:normal}
+.nav-cart-btn{background:var(--g);color:#fff;border:none;border-radius:30px;padding:8px 18px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;display:flex;align-items:center;gap:8px;transition:.2s}
+.nav-cart-btn:hover{background:var(--gd)}
+#cart-count{background:var(--p);color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:900}
+/* SYNC BANNER */
+#sync-banner{background:linear-gradient(90deg,#1a7a1a,#2ea02e);color:#fff;text-align:center;padding:7px 16px;font-size:.82rem;font-weight:700;display:none;align-items:center;justify-content:center;gap:8px}
+#sync-banner.show{display:flex}
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--p) 0%,var(--m) 65%,#7B2FBE 100%);padding:44px 20px 52px;text-align:center;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-80px;right:-80px;width:320px;height:320px;background:radial-gradient(circle,rgba(139,207,63,.15) 0%,transparent 70%);border-radius:50%;pointer-events:none}
+.hero-badge{display:inline-block;background:var(--g);color:#fff;border-radius:30px;padding:5px 16px;font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.hero h1{font-family:'Fredoka One',sans-serif;font-size:2.5rem;color:#fff;line-height:1.15;margin-bottom:10px}
+.hero h1 span{color:var(--g)}
+.hero p{color:rgba(255,255,255,.82);font-size:1.05rem;margin-bottom:26px}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-hero{border-radius:30px;padding:13px 28px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.97rem;cursor:pointer;transition:.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-hero.primary{background:var(--g);color:#fff;border:none;box-shadow:0 4px 18px rgba(139,207,63,.4)}
+.btn-hero.primary:hover{background:var(--gd);transform:translateY(-2px)}
+.btn-hero.secondary{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.45)}
+.btn-hero.secondary:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+/* HOW */
+.how{padding:40px 20px;max-width:900px;margin:0 auto;text-align:center}
+.sec-title{font-family:'Fredoka One',sans-serif;font-size:1.7rem;color:var(--p);margin-bottom:4px}
+.sec-sub{color:#777;font-size:.93rem;margin-bottom:22px}
+.steps{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px}
+@media(min-width:580px){.steps{grid-template-columns:repeat(4,1fr)}}
+.step{background:#fff;border-radius:16px;padding:22px 14px;box-shadow:var(--sh)}
+.step-num{width:38px;height:38px;background:var(--m);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fredoka One',sans-serif;font-size:1.15rem;margin:0 auto 8px}
+.step-ico{font-size:1.7rem;margin-bottom:6px}
+.step h4{font-weight:800;color:var(--p);font-size:.88rem}
+/* CATS */
+.cats{padding:32px 20px 0;max-width:960px;margin:0 auto}
+.cat-scroll{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(min-width:540px){.cat-scroll{grid-template-columns:repeat(5,1fr)}}
+@media(min-width:768px){.cat-scroll{grid-template-columns:repeat(9,1fr)}}
+.cat-card{background:#fff;border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:.2s;border:2px solid transparent;box-shadow:var(--sh)}
+.cat-card:hover,.cat-card.active{border-color:var(--g);transform:translateY(-3px)}
+.cat-card.active{background:linear-gradient(135deg,var(--p),var(--m));color:#fff}
+.cat-ico{font-size:1.8rem;margin-bottom:4px}
+.cat-nm{font-weight:800;font-size:.76rem;color:var(--p)}
+.cat-card.active .cat-nm{color:#fff}
+/* MENU */
+.menu-wrap{padding:20px 20px 70px;max-width:960px;margin:0 auto}
+/* BUILDER */
+.builder{background:#fff;border-radius:20px;box-shadow:var(--sh);overflow:hidden;margin-bottom:20px}
+.builder-head{background:linear-gradient(135deg,var(--p),var(--m));padding:18px 22px;color:#fff}
+.builder-head h3{font-family:'Fredoka One',sans-serif;font-size:1.35rem}
+.builder-head p{font-size:.87rem;opacity:.82;margin-top:3px}
+.b-section{padding:18px 22px;border-bottom:1px solid #f0e8ff}
+.b-label{font-weight:800;color:var(--p);font-size:.87rem;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sz{border:2px solid #ddd;border-radius:14px;padding:12px 6px;text-align:center;cursor:pointer;transition:.2s;background:#fafafa}
+.sz:hover{border-color:var(--m)}
+.sz.sel{border-color:var(--g);background:linear-gradient(135deg,#f0fff4,#e8f5d4)}
+.sz-price{font-family:'Fredoka One',sans-serif;font-size:1.25rem;color:var(--p)}
+.sz-ml{font-size:.78rem;color:#666;font-weight:600}
+.sz-inc{font-size:.73rem;color:var(--g);font-weight:700;margin-top:2px}
+.counter{background:#f0e8ff;border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.counter-txt{font-weight:700;color:var(--p);font-size:.88rem}
+.counter-num{font-family:'Fredoka One',sans-serif;font-size:1.1rem;color:var(--g)}
+.counter-num.full{color:#e74c3c}
+.opt-group{margin-bottom:18px}
+.opt-title{font-weight:800;color:var(--p);margin-bottom:10px;font-size:.92rem;display:flex;align-items:center;gap:6px}
+.opt-title span{background:var(--m);color:#fff;border-radius:20px;padding:2px 10px;font-size:.75rem}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{border:2px solid #e0d0f0;border-radius:30px;padding:6px 13px;font-size:.82rem;font-weight:700;cursor:pointer;transition:.15s;background:#fff;color:#444;user-select:none}
+.chip:hover:not(.dis){border-color:var(--m);color:var(--m)}
+.chip.on{background:var(--m);color:#fff;border-color:var(--m)}
+.chip.dis{opacity:.38;cursor:not-allowed}
+.builder-foot{padding:14px 22px;background:#fafafa;border-top:1px solid #f0e8ff;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.b-total{font-family:'Fredoka One',sans-serif;font-size:1.45rem;color:var(--p)}
+.b-total small{font-family:'Nunito',sans-serif;font-size:.78rem;color:#888;font-weight:600;display:block}
+.add-btn{background:var(--g);color:#fff;border:none;border-radius:30px;padding:12px 26px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.92rem;cursor:pointer;transition:.2s;box-shadow:0 4px 14px rgba(139,207,63,.35)}
+.add-btn:hover:not(:disabled){background:var(--gd);transform:translateY(-2px)}
+.add-btn:disabled{background:#ccc;cursor:not-allowed;transform:none;box-shadow:none}
+/* PRODUCT GRID */
+.pgrid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:480px){.pgrid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:720px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+.pcard{background:#fff;border-radius:16px;box-shadow:var(--sh);display:flex;flex-direction:column;transition:.18s}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(43,0,77,.16)}
+.pcard-body{padding:14px 14px 8px;flex:1}
+.pcard-name{font-weight:800;font-size:.97rem;color:var(--p);margin-bottom:3px}
+.pcard-desc{font-size:.78rem;color:#777;line-height:1.5;margin-bottom:8px}
+.pcard-price{font-family:'Fredoka One',sans-serif;font-size:1.25rem;color:var(--gd)}
+.pcard-add{margin:0 14px 14px;background:var(--m);color:#fff;border:none;border-radius:12px;padding:9px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;cursor:pointer;transition:.18s}
+.pcard-add:hover{background:var(--p)}
+/* OBS */
+.obs-wrap{padding:0 22px 18px}
+.form-lbl{display:block;font-weight:700;font-size:.83rem;color:var(--p);margin-bottom:5px}
+.form-inp{width:100%;border:2px solid #e0d0f0;border-radius:12px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.92rem;outline:none;transition:.2s}
+.form-inp:focus{border-color:var(--m)}
+/* CART DRAWER */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:.28s}
+.ov.on{opacity:1;pointer-events:all}
+.drawer{position:fixed;right:0;top:0;bottom:0;width:min(400px,100vw);background:#fff;z-index:201;transform:translateX(105%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:-4px 0 24px rgba(0,0,0,.18)}
+.drawer.on{transform:translateX(0)}
+.dhead{background:var(--p);padding:18px 20px;color:#fff;display:flex;align-items:center;justify-content:space-between}
+.dhead h2{font-family:'Fredoka One',sans-serif;font-size:1.3rem}
+.dclose{background:transparent;border:none;color:#fff;font-size:1.6rem;cursor:pointer;line-height:1;padding:0 4px}
+.dbody{flex:1;overflow-y:auto;padding:14px}
+.empty{text-align:center;padding:56px 20px;color:#bbb}
+.empty .ei{font-size:3rem;margin-bottom:10px}
+.citem{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #f0e8ff}
+.ci-info{flex:1}
+.ci-name{font-weight:800;font-size:.88rem;color:var(--p)}
+.ci-detail{font-size:.75rem;color:#777;margin-top:2px;line-height:1.4}
+.ci-obs{font-size:.75rem;color:#a06030;margin-top:1px}
+.ci-price{font-family:'Fredoka One',sans-serif;color:var(--gd);font-size:.97rem;margin-top:3px}
+.ci-ctrl{display:flex;align-items:center;gap:7px;margin-top:7px}
+.qbtn{width:27px;height:27px;border-radius:50%;border:2px solid var(--m);background:transparent;color:var(--m);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:800;transition:.15s}
+.qbtn:hover{background:var(--m);color:#fff}
+.qn{font-weight:800;font-size:.92rem;min-width:20px;text-align:center}
+.del-item{background:transparent;border:none;color:#e74c3c;cursor:pointer;font-size:1rem;margin-left:auto}
+.dfoot{padding:14px 16px;border-top:2px solid #f0e8ff;background:#fafafa}
+.dtotal{display:flex;justify-content:space-between;margin-bottom:12px}
+.dtotal-lbl{font-weight:700;color:#777}
+.dtotal-val{font-family:'Fredoka One',sans-serif;font-size:1.45rem;color:var(--p)}
+.dbtn{width:100%;background:var(--g);color:#fff;border:none;border-radius:14px;padding:14px;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.05rem;cursor:pointer;transition:.18s}
+.dbtn:hover:not(:disabled){background:var(--gd)}
+.dbtn:disabled{background:#ccc;cursor:not-allowed}
+/* CHECKOUT MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.modal-bg.on{display:flex}
+@media(min-width:560px){.modal-bg.on{align-items:center}}
+.modal{background:#fff;border-radius:22px 22px 0 0;width:100%;max-width:500px;max-height:93vh;overflow-y:auto;padding:26px 22px}
+@media(min-width:560px){.modal{border-radius:22px}}
+.modal-title{font-family:'Fredoka One',sans-serif;font-size:1.45rem;color:var(--p);margin-bottom:18px}
+.frow{margin-bottom:13px}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}
+.flbl{display:block;font-weight:700;font-size:.82rem;color:var(--p);margin-bottom:5px}
+.finp{width:100%;border:2px solid #e0d0f0;border-radius:12px;padding:10px 13px;font-family:'Nunito',sans-serif;font-size:.93rem;outline:none;transition:.2s}
+.finp:focus{border-color:var(--m)}
+.opts2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
+.opt2{border:2px solid #e0d0f0;border-radius:13px;padding:13px 8px;text-align:center;cursor:pointer;transition:.18s}
+.opt2:hover{border-color:var(--m)}
+.opt2.sel{border-color:var(--g);background:#f0fff4}
+.opt2 .oi{font-size:1.5rem;margin-bottom:3px}
+.opt2 .on2{font-weight:800;font-size:.87rem;color:var(--p)}
+.pix-box{background:#f0fff4;border:2px solid var(--g);border-radius:14px;padding:16px;text-align:center;margin-bottom:14px}
+.pix-key{font-family:'Fredoka One',sans-serif;font-size:1.15rem;color:var(--p);margin:7px 0}
+.copy-btn{background:var(--m);color:#fff;border:none;border-radius:11px;padding:8px 20px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.83rem;cursor:pointer;transition:.18s}
+.copy-btn:hover{background:var(--p)}
+.cfm-btn{width:100%;background:var(--g);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'Nunito',sans-serif;font-weight:800;font-size:1.05rem;cursor:pointer;transition:.18s;margin-top:6px}
+.cfm-btn:hover{background:var(--gd)}
+.back-btn{width:100%;background:transparent;color:#aaa;border:2px solid #ddd;border-radius:14px;padding:11px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.92rem;cursor:pointer;margin-top:8px}
+/* SUCCESS */
+.success{text-align:center;padding:16px 0}
+.s-ico{font-size:4rem;margin-bottom:10px}
+.s-title{font-family:'Fredoka One',sans-serif;font-size:1.75rem;color:var(--p);margin-bottom:7px}
+.s-txt{color:#666;margin-bottom:20px;line-height:1.7}
+.wpp-btn{display:inline-flex;align-items:center;gap:10px;background:#25d366;color:#fff;border:none;border-radius:30px;padding:13px 30px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.97rem;cursor:pointer;text-decoration:none;margin-bottom:12px}
+/* FAB */
+.fab{position:fixed;bottom:22px;right:22px;background:#25d366;color:#fff;border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;box-shadow:0 4px 20px rgba(37,211,102,.45);z-index:150;text-decoration:none;transition:.2s}
+.fab:hover{transform:scale(1.12)}
+/* ABOUT */
+.about{background:linear-gradient(135deg,var(--p),var(--m));padding:48px 20px;text-align:center;color:#fff}
+.about h2{font-family:'Fredoka One',sans-serif;font-size:1.9rem;margin-bottom:12px}
+.about p{max-width:600px;margin:0 auto 9px;opacity:.84;line-height:1.7;font-size:.97rem}
+.about-dev{font-size:.82rem;opacity:.55;margin-top:16px}
+.about-dev strong{color:var(--g);opacity:1}
+/* FOOTER */
+footer{background:var(--p);color:#fff;padding:34px 20px;text-align:center}
+.f-logo{font-family:'Fredoka One',sans-serif;font-size:1.7rem;color:var(--g);margin-bottom:7px}
+.f-info{font-size:.85rem;opacity:.7;line-height:2;margin-bottom:14px}
+.f-links{display:flex;justify-content:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.f-link{color:rgba(255,255,255,.65);text-decoration:none;font-size:.88rem;font-weight:700;transition:.18s}
+.f-link:hover{color:var(--g)}
+.f-dev{font-size:.76rem;color:rgba(255,255,255,.38);border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-top:14px}
+/* TOAST */
+.toast{position:fixed;bottom:86px;left:50%;transform:translateX(-50%) translateY(18px);background:var(--p);color:#fff;border-radius:30px;padding:11px 22px;font-weight:700;font-size:.87rem;z-index:400;opacity:0;transition:.28s;pointer-events:none;white-space:nowrap;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<!-- SYNC BANNER -->
+<div id="sync-banner">
+  <span>🔄</span> <span id="sync-msg">Cardápio atualizado pelo estabelecimento!</span>
+</div>
+
+<nav>
+  <div class="nav-logo">Açaí<em>Deira</em> Mix</div>
+  <button class="nav-cart-btn" onclick="openCart()">
+    🛒 Carrinho <span id="cart-count">0</span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-badge">🏍️ Delivery disponível</div>
+  <h1>Monte seu <span>Açaí</span><br/>do seu jeito!</h1>
+  <p>O melhor açaí de Pendências/RN · Sorvetes, Sanduíches e muito mais!</p>
+  <div class="hero-btns">
+    <button class="btn-hero primary" onclick="scrollToMenu()">🍦 Pedir Agora</button>
+    <a class="btn-hero secondary" href="https://wa.me/5584999822489" target="_blank">💬 WhatsApp</a>
+  </div>
+</section>
+
+<section class="how">
+  <div class="sec-title">Como funciona?</div>
+  <div class="sec-sub">Simples, rápido e gostoso!</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-ico">🍧</div><h4>Escolha os produtos</h4></div>
+    <div class="step"><div class="step-num">2</div><div class="step-ico">✏️</div><h4>Monte o pedido</h4></div>
+    <div class="step"><div class="step-num">3</div><div class="step-ico">💸</div><h4>Pague via PIX</h4></div>
+    <div class="step"><div class="step-num">4</div><div class="step-ico">🚀</div><h4>Receba em casa</h4></div>
+  </div>
+</section>
+
+<section class="cats" id="menu-anchor">
+  <div class="sec-title">Cardápio</div>
+  <div class="sec-sub" style="margin-bottom:16px">Escolha uma categoria</div>
+  <div class="cat-scroll" id="cat-grid"></div>
+</section>
+
+<section class="menu-wrap">
+  <div id="menu-content"></div>
+</section>
+
+<section class="about">
+  <h2>Sobre nós 💜</h2>
+  <p>A AçaíDeira Mix é referência em Pendências/RN. Trabalhamos com ingredientes frescos, combinações únicas e muito carinho em cada pedido.</p>
+  <p>📍 Av. Alba Miranda Pinheiro, 235 A-F · Centro · Pendências/RN</p>
+  <p>📸 @acaideira_mixx &nbsp;·&nbsp; 📞 (84) 99982-2489</p>
+  <p class="about-dev">Desenvolvido por <strong>João Vitor Leonardo da Silva</strong></p>
+</section>
+
+<footer>
+  <div class="f-logo">AçaíDeira Mix</div>
+  <div class="f-info">
+    📍 Av. Alba Miranda Pinheiro, 235 A-F · Centro · Pendências/RN<br/>
+    📞 (84) 99982-2489 &nbsp;·&nbsp; 📸 @acaideira_mixx<br/>
+    🕐 Seg–Dom: 14h às 23h
+  </div>
+  <div class="f-links">
+    <a class="f-link" href="https://wa.me/5584999822489" target="_blank">💬 WhatsApp</a>
+    <a class="f-link" href="https://instagram.com/acaideira_mixx" target="_blank">📸 Instagram</a>
+    <a class="f-link" href="dono.html">🔒 Área do Dono</a>
+  </div>
+  <div class="f-dev">
+    © 2025 AçaíDeira Mix · Todos os direitos reservados<br/>
+    Desenvolvido por <strong style="color:rgba(255,255,255,.65)">João Vitor Leonardo da Silva</strong>
+  </div>
+</footer>
+
+<a class="fab" href="https://wa.me/5584999822489" target="_blank">💬</a>
+<div class="toast" id="toast"></div>
+
+<!-- CART -->
+<div class="ov" id="ov" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="dhead"><h2>🛒 Carrinho</h2><button class="dclose" onclick="closeCart()">×</button></div>
+  <div class="dbody" id="cart-body"></div>
+  <div class="dfoot">
+    <div class="dtotal"><span class="dtotal-lbl">Total</span><span class="dtotal-val" id="cart-total">R$ 0,00</span></div>
+    <button class="dbtn" id="checkout-btn" onclick="openCheckout()" disabled>Finalizar Pedido</button>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal" id="modal-inner"></div>
+</div>
+
+<script>
+// ============================================================
+//  SYNC ENGINE — BroadcastChannel + storage event fallback
+// ============================================================
+const MENU_KEY   = 'acaideira_menu';
+const ORDERS_KEY = 'acaideira_orders';
+const SYNC_CH    = 'acaideira_sync';
+
+let bc = null;
+try { bc = new BroadcastChannel(SYNC_CH); } catch(e) {}
+
+function onRemoteMsg(type, payload) {
+  if (type === 'menu_updated') {
+    menuData = payload;
+    showSyncBanner('🔄 Cardápio atualizado pelo estabelecimento!');
+    renderMenu();
+  }
+  if (type === 'order_status') {
+    // future: notify customer of status change
+  }
+}
+
+if (bc) {
+  bc.onmessage = e => onRemoteMsg(e.data.type, e.data.payload);
+}
+
+// storage event = cross-tab fallback (same origin, different tab)
+window.addEventListener('storage', e => {
+  if (e.key === MENU_KEY && e.newValue) {
+    try {
+      menuData = JSON.parse(e.newValue);
+      showSyncBanner('🔄 Cardápio atualizado pelo estabelecimento!');
+      renderMenu();
+    } catch(_) {}
+  }
+});
+
+function showSyncBanner(msg) {
+  const b = document.getElementById('sync-banner');
+  const m = document.getElementById('sync-msg');
+  m.textContent = msg;
+  b.classList.add('show');
+  setTimeout(() => b.classList.remove('show'), 4000);
+}
+
+// ============================================================
+//  DATA
+// ============================================================
+const CATS = [
+  {id:'acai',    name:'Açaí',      ico:'🍧'},
+  {id:'sorvete', name:'Sorvetes',  ico:'🍦'},
+  {id:'sanduiche',name:'Sanduíches',ico:'🥪'},
+  {id:'salgado', name:'Salgados',  ico:'🥟'},
+  {id:'milkshake',name:'Milk Shake',ico:'🥤'},
+  {id:'suco',    name:'Sucos',     ico:'🧃'},
+  {id:'vitamina',name:'Vitaminas', ico:'🫐'},
+  {id:'bebida',  name:'Bebidas',   ico:'💧'},
+  {id:'acrescimo',name:'Acréscimos',ico:'➕'}
+];
+
+function defaultMenu() {
+  return {
+    acai:{
+      bases:['Açaí Tradicional','Açaí Zero','Açaí Mesclado Banana','Açaí Mesclado Ninho','Creme de Ninho','Creme de Ninho Trufado','Creme Maltine','Creme Cupuaçu','Creme de Tapioca','Creme de Morango','Creme de Guaraná','Creme de Abacaxi','Creme de Maracujá'],
+      frutas:['Banana','Morango','Kiwi','Cereja','Coco','Abacaxi'],
+      coberturas:['Morango','Chocolate','Uva','Caramelo','Kiwi','Limão','Menta','Nutella','Leite Condensado','Choco Bis Preto','Choco Bis Branco','Cookies and Cream','Amendoim em Pedaços','Fini Dentadura','Fini Beijo','Fini Banana'],
+      acompanhamentos:['Disquete','Gotas Pretas','Gotas Brancas','Choco Power','Flocos de Arroz','Jujuba','Fini','Negresco Triturado','Ovomaltine','Cereais','Granulado Colorido','Granulado Preto','Leite em Pó','Granola','Farinha Láctea','Amendoim Inteiro','Amendoim Triturado','Amendoim Colorido','Castanha','Paçoca','Passas','Bis','Canudos','Biscoito Oreo','Choco Ball','Serenata','Sonho de Valsa'],
+      sizes:[{label:'290ml',price:12,slots:5},{label:'340ml',price:14,slots:6},{label:'480ml',price:20,slots:8}]
+    },
+    sorvete:{
+      sabores:['Morango','Chocolate','Nata','Nata Uva','Nata Goiaba','Napolitano','7 Belo','Pudim','3 Chocolate','Chocolate Meio Amargo','Chiclete com Banana','Serenata','Chocomenta'],
+      frutas:['Banana','Morango','Kiwi','Cereja','Coco','Abacaxi'],
+      coberturas:['Morango','Chocolate','Uva','Caramelo','Kiwi','Limão','Menta','Nutella','Leite Condensado','Choco Bis Preto','Choco Bis Branco','Cookies and Cream','Amendoim em Pedaços','Fini Dentadura','Fini Beijo','Fini Banana'],
+      acompanhamentos:['Disquete','Gotas Pretas','Gotas Brancas','Choco Power','Flocos de Arroz','Jujuba','Fini','Negresco Triturado','Ovomaltine','Cereais','Granulado Colorido','Granulado Preto','Leite em Pó','Granola','Farinha Láctea','Amendoim Inteiro','Amendoim Triturado','Amendoim Colorido','Castanha','Paçoca','Passas','Bis','Canudos','Biscoito Oreo','Choco Ball','Serenata','Sonho de Valsa'],
+      sizes:[{label:'240ml',price:10,slots:4},{label:'340ml',price:14,slots:6},{label:'480ml',price:20,slots:8}]
+    },
+    sanduiches:[
+      {name:'Hot Dog',price:8,desc:'Pão, salsicha, frango, carne, milho verde, batata palha e ovo de codorna.'},
+      {name:'Hot Dog Carne na Nata',price:10,desc:'Pão, salsicha, carne na nata, milho verde, ervilha, batata palha, ovo de codorna, maionese especial e ketchup.'},
+      {name:'Mix da Casa',price:8,desc:'Pão da casa, maionese especial, ketchup, salada, queijo, carne e ovo.'},
+      {name:'Bacon ao Catupiry',price:8,desc:'Pão da casa, maionese especial, ketchup, salada, bacon, queijo, carne e catupiry.'},
+      {name:'4 Queijos',price:8,desc:'Pão da casa, maionese especial, ketchup, salada, carne, queijo, catupiry, cheddar e coalho.'},
+      {name:'Tubá à Calabresa',price:8,desc:'Pão da casa, maionese especial, ketchup, salada, calabresa, carne, queijo e cheddar.'},
+      {name:'Filé ao Cheddar',price:10,desc:'Pão da casa, maionese especial, ketchup, salada, filé de carne, queijo, carne e cheddar.'},
+      {name:'Frango Topzão',price:12,desc:'Pão da casa, maionese especial, ketchup, salada, frango, salsicha, queijo e carne.'},
+      {name:'Sertanejo',price:14,desc:'Pão da casa, maionese especial, ketchup, salada, queijo coalho, carne, catupiry e carne de sol.'},
+      {name:'Salmão O Top',price:15,desc:'Pão da casa, maionese especial, ketchup, salada, 2 carnes, calabresa, bacon, queijo, ovo e cheddar.'},
+      {name:'X-Monstro',price:18,desc:'Pão da casa, maionese especial, ketchup, salada, carne artesanal, ovo, queijo, frango, salsicha, cheddar e bacon.'},
+      {name:'Blackout',price:18,desc:'Pão da casa, maionese especial, ketchup, salada, carne artesanal, calabresa, bacon, filé de carne, queijo, ovo e catupiry.'}
+    ],
+    salgados:[{name:'Coxinha',price:7},{name:'Rizole',price:7},{name:'Enroladinho',price:7},{name:'Pastel de Forno',price:7},{name:'Empada',price:7},{name:'Bola de Ovo',price:7}],
+    milkshakes:[{name:'Milk Shake Morango',price:17},{name:'Milk Shake Chocolate',price:17},{name:'Milk Shake Ovomaltine',price:17}],
+    sucos:[{name:'Suco de Uva',price:6},{name:'Suco de Morango',price:6},{name:'Suco de Maracujá',price:6},{name:'Suco de Laranja Natural',price:7},{name:'Suco de Graviola',price:6},{name:'Suco de Goiaba',price:6},{name:'Suco de Cajá',price:6},{name:'Suco de Acerola',price:6},{name:'Suco de Abacaxi',price:6},{name:'Suco de Mangaba',price:6}],
+    vitaminas:[{name:'Vitamina (todos os sabores)',price:7}],
+    bebidas:[{name:'Água Mineral',price:2},{name:'Água com Gás',price:4},{name:'Refrigerante 1L',price:10},{name:'Refrigerante Lata',price:6},{name:'Refrigerante KS',price:6},{name:'Refrigerante PET 250ml',price:4},{name:'Coca-Cola 600ml',price:8},{name:'Kapo',price:4},{name:'H2O',price:8},{name:'Aquarius Fresh',price:8}],
+    acrescimos:[{name:'Artesanal',price:5},{name:'Carne de Sol',price:4},{name:'Filé de Carne',price:4},{name:'Frango',price:4},{name:'Ovo',price:2},{name:'Salsicha',price:2},{name:'Bacon',price:3},{name:'Calabresa',price:3},{name:'Queijo Coalho',price:3},{name:'Molho Extra',price:1}]
+  };
+}
+
+function loadMenu() {
+  try { const s = localStorage.getItem(MENU_KEY); if(s) return JSON.parse(s); } catch(_) {}
+  return defaultMenu();
+}
+
+let menuData = loadMenu();
+let activeCat = 'acai';
+let cart = [];
+
+// Builder state
+let aS=null,aBase=[],aFruta=[],aCob=[],aAcomp=[],_aObs='';
+let sS=null,sSab=[],sFruta=[],sCob=[],sAcomp=[],_sObs='';
+let delivType='delivery', payType='pix';
+
+// ============================================================
+//  RENDER CATEGORIES
+// ============================================================
+function renderCats() {
+  document.getElementById('cat-grid').innerHTML = CATS.map(c => `
+    <div class="cat-card${c.id===activeCat?' active':''}" onclick="switchCat('${c.id}')">
+      <div class="cat-ico">${c.ico}</div>
+      <div class="cat-nm">${c.name}</div>
+    </div>`).join('');
+}
+
+function switchCat(id) {
+  activeCat = id;
+  renderCats();
+  renderMenu();
+  document.getElementById('menu-anchor').scrollIntoView({behavior:'smooth'});
+}
+
+// ============================================================
+//  RENDER MENU
+// ============================================================
+function renderMenu() {
+  const el = document.getElementById('menu-content');
+  menuData = loadMenu(); // always fresh from storage
+  if (activeCat === 'acai')     { el.innerHTML = buildAcai();    attachAcaiChips();    return; }
+  if (activeCat === 'sorvete')  { el.innerHTML = buildSorvete(); attachSorveteChips(); return; }
+  const map = {
+    sanduiche:'sanduiches', salgado:'salgados', milkshake:'milkshakes',
+    suco:'sucos', vitamina:'vitaminas', bebida:'bebidas', acrescimo:'acrescimos'
+  };
+  const items = menuData[map[activeCat]] || [];
+  el.innerHTML = `<div class="pgrid">${items.map((p,i) => `
+    <div class="pcard">
+      <div class="pcard-body">
+        <div class="pcard-name">${p.name}</div>
+        ${p.desc?`<div class="pcard-desc">${p.desc}</div>`:''}
+        <div class="pcard-price">R$ ${fmt(p.price)}</div>
+      </div>
+      <button class="pcard-add" onclick="addSimple(${i},'${activeCat}')">+ Adicionar</button>
+    </div>`).join('')}</div>`;
+}
+
+// ============================================================
+//  AÇAÍ BUILDER
+// ============================================================
+function buildAcai() {
+  const s = menuData.acai;
+  const slots = aS ? aS.slots : 0;
+  const used = aBase.length + aFruta.length + aCob.length + aAcomp.length;
+  const rem = Math.max(0, slots - used);
+  return `
+  <div class="builder">
+    <div class="builder-head"><h3>🍧 Monte seu Açaí</h3><p>Escolha o tamanho e personalize!</p></div>
+    <div class="b-section">
+      <div class="b-label">1. Tamanho</div>
+      <div class="sizes">
+        ${s.sizes.map((sz,i)=>`<div class="sz${aS&&aS.label===sz.label?' sel':''}" onclick="pickAcaiSize(${i})">
+          <div class="sz-price">R$ ${fmt(sz.price)}</div><div class="sz-ml">${sz.label}</div><div class="sz-inc">${sz.slots} acomp.</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    ${aS ? `
+    <div class="b-section">
+      <div class="counter">
+        <span class="counter-txt">Acompanhamentos usados</span>
+        <span class="counter-num${used>=slots?' full':''}">${used}/${slots}</span>
+      </div>
+      <div class="opt-group"><div class="opt-title">🍧 Base / Creme <span>máx. 1</span></div>
+        <div class="chips">${s.bases.map(v=>`<div class="chip${aBase.includes(v)?' on':''}${!aBase.includes(v)&&rem===0?' dis':''}" data-at="base" data-v="${v}">${v}</div>`).join('')}</div>
+      </div>
+      <div class="opt-group"><div class="opt-title">🍓 Frutas</div>
+        <div class="chips">${s.frutas.map(v=>`<div class="chip${aFruta.includes(v)?' on':''}${!aFruta.includes(v)&&rem===0?' dis':''}" data-at="fruta" data-v="${v}">${v}</div>`).join('')}</div>
+      </div>
+      <div class="opt-group"><div class="opt-title">🫐 Coberturas</div>
+        <div class="chips">${s.coberturas.map(v=>`<div class="chip${aCob.includes(v)?' on':''}${!aCob.includes(v)&&rem===0?' dis':''}" data-at="cob" data-v="${v}">${v}</div>`).join('')}</div>
+      </div>
+      <div class="opt-group"><div class="opt-title">🍪 Acompanhamentos</div>
+        <div class="chips">${s.acompanhamentos.map(v=>`<div class="chip${aAcomp.includes(v)?' on':''}${!aAcomp.includes(v)&&rem===0?' dis':''}" data-at="acomp" data-v="${v}">${v}</div>`).join('')}</div>
+      </div>
+    </div>
+    <div class="obs-wrap">
+      <label class="form-lbl">Observações (opcional)</label>
+      <input class="form-inp" id="a-obs" placeholder="Ex: pouco açaí, bastante granola..." value="${_aObs}"/>
+    </div>
+    <div class="builder-foot">
+      <div class="b-total"><small>Subtotal</small>R$ ${fmt(aS.price)}</div>
+      <button class="add-btn" onclick="addAcaiCart()" ${aBase.length===0?'disabled':''}>
+        ${aBase.length===0?'Escolha a base':'+ Adicionar ao Carrinho'}
+      </button>
+    </div>` : `<div style="padding:20px 22px;color:#aaa;font-size:.93rem">👆 Escolha um tamanho para começar</div>`}
+  </div>`;
+}
+
+function pickAcaiSize(i) {
+  aS=menuData.acai.sizes[i]; aBase=[]; aFruta=[]; aCob=[]; aAcomp=[]; _aObs='';
+  document.getElementById('menu-content').innerHTML=buildAcai(); attachAcaiChips();
+}
+
+function attachAcaiChips() {
+  document.querySelectorAll('.chip[data-at]').forEach(el => {
+    el.addEventListener('click', function() {
+      if(this.classList.contains('dis')) return;
+      const t=this.dataset.at, v=this.dataset.v;
+      if(t==='base') { aBase = aBase.includes(v)?[]:[v]; }
+      else {
+        const arr = t==='fruta'?aFruta:t==='cob'?aCob:aAcomp;
+        const idx = arr.indexOf(v);
+        if(idx>-1) arr.splice(idx,1);
+        else if(aBase.length+aFruta.length+aCob.length+aAcomp.length < (aS?aS.slots:0)) arr.push(v);
+      }
+      document.getElementById('menu-content').innerHTML=buildAcai(); attachAcaiChips();
+    });
+  });
+  const ob=document.getElementById('a-obs');
+  if(ob) ob.addEventListener('input', e=>{ _aObs=e.target.value; });
+}
+
+function addAcaiCart() {
+  if(!aS||aBase.length===0) return;
+  const detail=[...aBase,...aFruta,...aCob,...aAcomp].join(', ');
+  const obs=document.getElementById('a-obs')?.value||'';
+  cart.push({id:Date.now(),name:`Açaí ${aS.label}`,detail,obs,price:aS.price,qty:1});
+  aS=null;aBase=[];aFruta=[];aCob=[];aAcomp=[];_aObs='';
+  updateCart(); renderMenu(); toast('🍧 Açaí adicionado ao carrinho!');
+}
+
+// ============================================================
+//  SORVETE BUILDER
+// ============================================================
+function buildSorvete() {
+  const s = menuData.sorvete;
+  const slots = sS?sS.slots:0;
+  const used = sSab.length+sFruta.length+sCob.length+sAcomp.length;
+  const rem = Math.max(0,slots-used);
+  return `
+  <div class="builder">
+    <div class="builder-head" style="background:linear-gradient(135deg,#1a0035,#4a0090)"><h3>🍦 Monte seu Sorvete</h3><p>Escolha o tamanho e personalize!</p></div>
+    <div class="b-section">
+      <div class="b-label">1. Tamanho</div>
+      <div class="sizes">
+        ${s.sizes.map((sz,i)=>`<div class="sz${sS&&sS.label===sz.label?' sel':''}" onclick="pickSorveteSize(${i})">
+          <div class="sz-price">R$ ${fmt(sz.price)}</div><div class="sz-ml">${sz.label}</div><div class="sz-inc">${sz.slots} acomp.</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    ${sS?`
+    <div class="b-section">
+      <div class="counter">
+        <span class="counter-txt">Acompanhamentos usados</span>
+        <span class="counter-num${used>=slots?' full':''}">${used}/${slots}</span>
+      </div>
+      <div class="opt-group"><div class="opt-title">🍦 Sabor <span>máx. 1</span></div>
+        <div class="chips">${s.sabores.map(v=>`<div class="chip${sSab.includes(v)?' on':''}${!sSab.includes(v)&&rem===0?' dis':''}" data-st="sab" data-sv="${v}">${v}</div>`).join('')}</div>
+      </div>
+      <div class="opt-group"><div class="opt-title">🍓 Frutas</div>
+        <div class="chips">${s.frutas.map(v=>`<div class="chip${sFruta.includes(v)?' on':''}${!sFruta.includes(v)&&rem===0?' dis':''}" data-st="fruta" data-sv="${v}">${v}</div>`).join('')}</div>
+      </div>
+      <div class="opt-group"><div class="opt-title">🫐 Coberturas</div>
+        <div class="chips">${s.coberturas.map(v=>`<div class="chip${sCob.includes(v)?' on':''}${!sCob.includes(v)&&rem===0?' dis':''}" data-st="cob" data-sv="${v}">${v}</div>`).join('')}</div>
+      </div>
+      <div class="opt-group"><div class="opt-title">🍪 Acompanhamentos</div>
+        <div class="chips">${s.acompanhamentos.map(v=>`<div class="chip${sAcomp.includes(v)?' on':''}${!sAcomp.includes(v)&&rem===0?' dis':''}" data-st="acomp" data-sv="${v}">${v}</div>`).join('')}</div>
+      </div>
+    </div>
+    <div class="obs-wrap">
+      <label class="form-lbl">Observações (opcional)</label>
+      <input class="form-inp" id="s-obs" placeholder="Ex: pouco sorvete..." value="${_sObs}"/>
+    </div>
+    <div class="builder-foot">
+      <div class="b-total"><small>Subtotal</small>R$ ${fmt(sS.price)}</div>
+      <button class="add-btn" onclick="addSorveteCart()" ${sSab.length===0?'disabled':''}>
+        ${sSab.length===0?'Escolha o sabor':'+ Adicionar ao Carrinho'}
+      </button>
+    </div>`:`<div style="padding:20px 22px;color:#aaa;font-size:.93rem">👆 Escolha um tamanho para começar</div>`}
+  </div>`;
+}
+
+function pickSorveteSize(i) {
+  sS=menuData.sorvete.sizes[i]; sSab=[]; sFruta=[]; sCob=[]; sAcomp=[]; _sObs='';
+  document.getElementById('menu-content').innerHTML=buildSorvete(); attachSorveteChips();
+}
+
+function attachSorveteChips() {
+  document.querySelectorAll('.chip[data-st]').forEach(el=>{
+    el.addEventListener('click',function(){
+      if(this.classList.contains('dis')) return;
+      const t=this.dataset.st, v=this.dataset.sv;
+      if(t==='sab') { sSab=sSab.includes(v)?[]:[v]; }
+      else {
+        const arr=t==='fruta'?sFruta:t==='cob'?sCob:sAcomp;
+        const idx=arr.indexOf(v);
+        if(idx>-1) arr.splice(idx,1);
+        else if(sSab.length+sFruta.length+sCob.length+sAcomp.length<(sS?sS.slots:0)) arr.push(v);
+      }
+      document.getElementById('menu-content').innerHTML=buildSorvete(); attachSorveteChips();
+    });
+  });
+  const ob=document.getElementById('s-obs');
+  if(ob) ob.addEventListener('input',e=>{ _sObs=e.target.value; });
+}
+
+function addSorveteCart() {
+  if(!sS||sSab.length===0) return;
+  const detail=[...sSab,...sFruta,...sCob,...sAcomp].join(', ');
+  const obs=document.getElementById('s-obs')?.value||'';
+  cart.push({id:Date.now(),name:`Sorvete ${sS.label}`,detail,obs,price:sS.price,qty:1});
+  sS=null;sSab=[];sFruta=[];sCob=[];sAcomp=[];_sObs='';
+  updateCart(); renderMenu(); toast('🍦 Sorvete adicionado!');
+}
+
+// ============================================================
+//  SIMPLE ADD
+// ============================================================
+function addSimple(i,cat) {
+  const map={sanduiche:'sanduiches',salgado:'salgados',milkshake:'milkshakes',suco:'sucos',vitamina:'vitaminas',bebida:'bebidas',acrescimo:'acrescimos'};
+  const p=menuData[map[cat]][i];
+  const ex=cart.find(x=>x.name===p.name&&!x.detail);
+  if(ex){ex.qty++;} else cart.push({id:Date.now(),name:p.name,detail:'',obs:'',price:p.price,qty:1});
+  updateCart(); toast(`✅ ${p.name} adicionado!`);
+}
+
+// ============================================================
+//  CART
+// ============================================================
+function updateCart() {
+  const cnt=cart.reduce((a,i)=>a+i.qty,0);
+  const tot=cart.reduce((a,i)=>a+i.price*i.qty,0);
+  document.getElementById('cart-count').textContent=cnt;
+  document.getElementById('cart-total').textContent='R$ '+fmt(tot);
+  document.getElementById('checkout-btn').disabled=cart.length===0;
+  renderCartBody();
+}
+
+function renderCartBody() {
+  const el=document.getElementById('cart-body');
+  if(!cart.length){
+    el.innerHTML=`<div class="empty"><div class="ei">🛒</div><p>Carrinho vazio</p><p style="font-size:.83rem;margin-top:5px">Adicione produtos para continuar</p></div>`;
+    return;
+  }
+  el.innerHTML=cart.map(it=>`
+    <div class="citem">
+      <div class="ci-info">
+        <div class="ci-name">${it.name}</div>
+        ${it.detail?`<div class="ci-detail">${it.detail}</div>`:''}
+        ${it.obs?`<div class="ci-obs">Obs: ${it.obs}</div>`:''}
+        <div class="ci-price">R$ ${fmt(it.price*it.qty)}</div>
+        <div class="ci-ctrl">
+          <button class="qbtn" onclick="chgQty('${it.id}',-1)">−</button>
+          <span class="qn">${it.qty}</span>
+          <button class="qbtn" onclick="chgQty('${it.id}',1)">+</button>
+          <button class="del-item" onclick="delItem('${it.id}')">🗑️</button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function chgQty(id,d){ const it=cart.find(i=>i.id==id); if(!it) return; it.qty+=d; if(it.qty<=0) cart=cart.filter(i=>i.id!=id); updateCart(); }
+function delItem(id){ cart=cart.filter(i=>i.id!=id); updateCart(); }
+function openCart(){ document.getElementById('ov').classList.add('on'); document.getElementById('drawer').classList.add('on'); }
+function closeCart(){ document.getElementById('ov').classList.remove('on'); document.getElementById('drawer').classList.remove('on'); }
+
+// ============================================================
+//  CHECKOUT
+// ============================================================
+function openCheckout(){ closeCart(); renderStep1(); document.getElementById('modal-bg').classList.add('on'); }
+function closeModal(){ document.getElementById('modal-bg').classList.remove('on'); }
+
+function renderStep1() {
+  const tot=cart.reduce((a,i)=>a+i.price*i.qty,0);
+  document.getElementById('modal-inner').innerHTML=`
+  <div class="modal-title">📋 Finalizar Pedido</div>
+  <div class="frow"><div class="flbl">Tipo de entrega</div>
+    <div class="opts2">
+      <div class="opt2${delivType==='delivery'?' sel':''}" onclick="setDeliv('delivery')"><div class="oi">🏍️</div><div class="on2">Delivery</div></div>
+      <div class="opt2${delivType==='retirada'?' sel':''}" onclick="setDeliv('retirada')"><div class="oi">🏪</div><div class="on2">Retirada</div></div>
+    </div>
+  </div>
+  <div class="frow"><label class="flbl">Nome *</label><input class="finp" id="f-nome" placeholder="Nome completo"/></div>
+  <div class="frow"><label class="flbl">Telefone *</label><input class="finp" id="f-tel" placeholder="(84) 9 9999-9999" type="tel"/></div>
+  ${delivType==='delivery'?`
+  <div class="frow"><label class="flbl">Endereço *</label><input class="finp" id="f-end" placeholder="Rua / Avenida..."/></div>
+  <div class="frow2">
+    <div><label class="flbl">Número</label><input class="finp" id="f-num" placeholder="Nº"/></div>
+    <div><label class="flbl">Bairro</label><input class="finp" id="f-bairro" placeholder="Bairro"/></div>
+  </div>
+  <div class="frow"><label class="flbl">Complemento</label><input class="finp" id="f-comp" placeholder="Apto, referência..."/></div>`:''}
+  <div class="frow"><div class="flbl">Pagamento</div>
+    <div class="opts2">
+      <div class="opt2${payType==='pix'?' sel':''}" onclick="setPay('pix')"><div class="oi">💸</div><div class="on2">PIX</div></div>
+      <div class="opt2${payType==='dinheiro'?' sel':''}" onclick="setPay('dinheiro')"><div class="oi">💵</div><div class="on2">Dinheiro</div></div>
+    </div>
+  </div>
+  ${payType==='pix'?`
+  <div class="pix-box">
+    <div style="font-size:.82rem;color:#555;margin-bottom:4px">Chave PIX:</div>
+    <div class="pix-key">84997072860</div>
+    <button class="copy-btn" onclick="cpPix()">📋 Copiar chave PIX</button>
+  </div>`:''}
+  <div class="frow" style="background:#f0e8ff;border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-weight:700;color:#666">Total</span>
+    <span style="font-family:'Fredoka One',sans-serif;font-size:1.3rem;color:#2B004D">R$ ${fmt(tot)}</span>
+  </div>
+  <button class="cfm-btn" onclick="confirmOrder()">✅ Confirmar Pedido</button>
+  <button class="back-btn" onclick="closeModal()">← Voltar ao carrinho</button>`;
+}
+
+function setDeliv(t){delivType=t;renderStep1();}
+function setPay(t){payType=t;renderStep1();}
+function cpPix(){navigator.clipboard.writeText('84997072860').then(()=>toast('✅ Chave PIX copiada!'));}
+
+function confirmOrder(){
+  const nome=document.getElementById('f-nome')?.value.trim();
+  const tel=document.getElementById('f-tel')?.value.trim();
+  if(!nome||!tel){toast('⚠️ Preencha nome e telefone!');return;}
+  if(delivType==='delivery'&&!document.getElementById('f-end')?.value.trim()){toast('⚠️ Preencha o endereço!');return;}
+  const tot=cart.reduce((a,i)=>a+i.price*i.qty,0);
+  const end=delivType==='delivery'?
+    [document.getElementById('f-end')?.value,document.getElementById('f-num')?.value,document.getElementById('f-bairro')?.value,document.getElementById('f-comp')?.value].filter(Boolean).join(', ')
+    :'Retirada no local';
+  // Save order
+  const orders=JSON.parse(localStorage.getItem(ORDERS_KEY)||'[]');
+  const order={id:Date.now(),date:new Date().toISOString(),nome,tel,endereco:end,delivery:delivType,pagamento:payType,items:[...cart],total:tot,status:'novo'};
+  orders.push(order);
+  localStorage.setItem(ORDERS_KEY,JSON.stringify(orders));
+  // Broadcast to dono page
+  if(bc) bc.postMessage({type:'new_order',payload:order});
+  // WhatsApp
+  const itxt=cart.map(i=>`• ${i.qty}x ${i.name}${i.detail?' ('+i.detail+')':''} — R$ ${fmt(i.price*i.qty)}`).join('%0A');
+  const msg=`*🛒 Novo Pedido — AçaíDeira Mix*%0A%0A*Nome:* ${nome}%0A*Tel:* ${tel}%0A*Entrega:* ${end}%0A%0A*Itens:*%0A${itxt}%0A%0A*Total: R$ ${fmt(tot)}*%0A*Pagamento:* ${payType==='pix'?'PIX (84997072860)':'Dinheiro na entrega'}`;
+  document.getElementById('modal-inner').innerHTML=`
+  <div class="success">
+    <div class="s-ico">🎉</div>
+    <div class="s-title">Pedido realizado!</div>
+    <div class="s-txt">Clique abaixo para confirmar no WhatsApp e aguarde a AçaíDeira Mix!</div>
+    <a class="wpp-btn" href="https://wa.me/5584999822489?text=${msg}" target="_blank">💬 Confirmar no WhatsApp</a><br/>
+    <button class="back-btn" onclick="resetAfterOrder()">🏠 Fazer novo pedido</button>
+  </div>`;
+  cart=[]; updateCart();
+}
+
+function resetAfterOrder(){ closeModal(); activeCat='acai'; renderCats(); renderMenu(); }
+
+// ============================================================
+//  UTILS
+// ============================================================
+function fmt(n){ return n.toFixed(2).replace('.',','); }
+function scrollToMenu(){ document.getElementById('menu-anchor').scrollIntoView({behavior:'smooth'}); }
+let _toastTimer=null;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('on');
+  if(_toastTimer) clearTimeout(_toastTimer);
+  _toastTimer=setTimeout(()=>t.classList.remove('on'),2500);
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+renderCats();
+renderMenu();
+updateCart();
+</script>
+</body>
+</html>
